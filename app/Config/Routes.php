@@ -32,15 +32,10 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index');
+// $routes->get('/', 'Home::index');
 $routes->get('/', 'Dashboard::index');
-$routes->get('/dashboard/tes', 'Dashboard::tes');
-// $routes->delete('/golongan/edit/(:num)', 'Golongan::edit/$1');
-// $routes->delete('/golongan/delete/(:num)', 'Golongan::delete/$1');
-
-// $routes->delete('/pengirim_surat/ubah/(:num)', 'Pengirim_surat::ubah/$1');
-$routes->delete('/myarchive/document', 'myarchive::document');
-$routes->delete('/myarchive/images', 'myarchive::images');
-$routes->get('/dashboard/(:segment)', 'Dashboard::index/$1');
+$routes->get('/Hubungi_Kami', 'Tentang::kami');
+$routes->get('/Galeri', 'Document::galeri');
 
 /**
  * --------------------------------------------------------------------
