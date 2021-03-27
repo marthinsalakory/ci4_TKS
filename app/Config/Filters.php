@@ -20,9 +20,10 @@ class Filters extends BaseConfig
 	// Always applied before every request
 	public $globals = [
 		'before' => [
-			//'honeypot'
-			// 'csrf',
+			// honeypot, dan login untuk memfilter login untuk seluruh controler
+			'honeypot',
 			'login'
+			// 'csrf',
 		],
 		'after'  => [
 			'toolbar',
@@ -38,5 +39,10 @@ class Filters extends BaseConfig
 	// List filter aliases and any before/after uri patterns
 	// that they should run on, like:
 	//    'isLoggedIn' => ['before' => ['account/*', 'profiles/*']],
-	public $filters = [];
+	public $filters = [
+		// fungsi login dibawah ini untuk memfilter berdasarkan controllernya
+		// contoh 'login' => ['before' => ['Jurnal','Kelas']],
+		// contoh 'login' => ['before' => ['Jurnal/tambah','Kelas']],
+		// 'login' => ['before' => ['Kelas/tambah']],
+	];
 }
