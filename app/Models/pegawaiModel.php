@@ -14,7 +14,7 @@ class pegawaiModel extends Model
     {
 
         if ($id == false) {
-            $query =  $this->select('users.id as id, nama_lengkap, no_telp, email, name, username')
+            $query =  $this->select('users.id as id, nama_lengkap, email, name, username')
                 ->join('auth_groups ag', 'ag.id = users.level')
                 ->get();
 

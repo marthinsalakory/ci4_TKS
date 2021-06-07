@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\kuliahModel;
+
 /**
  * Class BaseController
  *
@@ -19,6 +21,11 @@ use CodeIgniter\Controller;
 
 class BaseController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->kuliahModel = new kuliahModel();
+    }
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -42,5 +49,6 @@ class BaseController extends Controller
         //--------------------------------------------------------------------
         // E.g.:
         // $this->session = \Config\Services::session();
+        session();
     }
 }

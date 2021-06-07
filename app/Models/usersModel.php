@@ -6,16 +6,21 @@ use CodeIgniter\Model;
 
 class usersModel extends Model
 {
-    protected $table = 'users';
     protected $useTimestamps = true;
-    // protected $primaryKey = 'user_id';
-    protected $allowedFields = ['email', 'username', 'nama_lengkap', 'level', 'no_telp', 'user_image', 'document', 'password_hash', 'active'];
+    protected $table = 'users';
+    protected $allowedFields = ['fakultas', 'jurusan', 'email', 'username', 'nama_lengkap', 'no_telp', 'level', 'password_hash', 'active'];
 
-    public function getuser($id = false)
+    public function getusers($id = false)
     {
 
         if ($id == false) {
-            return $this->findAll();
+            $query =  $this->select('users.id as usersid, ag.id as id_group, nama_lengkap, no_telp, email, description, username, level, nama_fakultas, nama_jurusan')
+                ->join('auth_groups ag', 'ag.id = users.level')
+                ->join('fakultas f', 'f.id = users.fakultas')
+                ->join('jurusan j', 'j.id = users.jurusan')
+                ->get();
+
+            return $query->getResultArray();
         }
 
 

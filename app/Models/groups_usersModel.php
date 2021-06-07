@@ -8,7 +8,7 @@ class groups_usersModel extends Model
 {
     protected $table = 'auth_groups_users';
     protected $useTimestamps = true;
-    // protected $allowedFields = ['name'];
+    protected $allowedFields = ['user_id', 'group_id'];
 
     public function getgroups()
     {

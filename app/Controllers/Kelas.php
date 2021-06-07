@@ -2,14 +2,15 @@
 
 namespace App\Controllers;
 
-// use App\Models\rolesModel;
+use App\Models\kelasModel;
 
 class Kelas extends BaseController
 {
     public function __construct()
     {
-        // $this->pegawaiModel = new pegawaiModel();
+        $this->kelasModel = new kelasModel();
     }
+
     public function index()
     {
         $data =

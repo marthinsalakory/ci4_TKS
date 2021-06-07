@@ -37,6 +37,8 @@ $routes->get('/', 'Dashboard::index');
 $routes->get('/Hubungi_Kami', 'Tentang::kami');
 $routes->get('/Galeri', 'Document::galeri');
 
+$routes->get('/Jurnal/kuliah/', 'Jurnal::index');
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing

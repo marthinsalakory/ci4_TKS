@@ -11,10 +11,10 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="/asset/img/marthin.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="/asset/img/<?= user()->user_image; ?>" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Marthin A Salakory</a>
+                        <a href="#" class="d-block"><?= user()->nama_lengkap; ?></a>
                     </div>
                 </div>
 
@@ -61,75 +61,167 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-university"></i>
-                                <p>
-                                    DATA KELAS
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/Kelas" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Lihat Semua</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Kelas/tambah" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tambah Kelas</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    JURNAL PERKULIAHAN
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/Jurnal/" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Lihat Semua Jurnal</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Jurnal/tambah" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tambah Jurnal</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    SEMUA PENGGUNA
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/Pengguna" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Lihat Semua</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Pengguna/tambah" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tambah Pengguna Baru</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        <?php if (in_groups('admin') || in_groups('operator_fakultas') || in_groups('operator')) { ?>
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-university"></i>
+                                    <p>
+                                        DATA KELAS
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <?php if (in_groups('admin') || in_groups('operator')) { ?>
+                                        <li class="nav-item">
+                                            <a href="/Fakultas" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Data Fakultas</p>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (in_groups('admin') || in_groups('operator_fakultas')) { ?>
+                                        <li class="nav-item">
+                                            <a href="/Jurusan" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Data Jurusan</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="/Kuliah" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Mata Kuliah</p>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                            </li>
+                        <?php } ?>
+                        <?php if (!in_groups('operator')) { ?>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>
+                                        JURNAL PERKULIAHAN
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/Jurnal/" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Lihat Semua Jurnal</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>
+                                                Lihat / Matakuliah
+                                                <i class="fas fa-angle-left right"></i>
+                                            </p>
+                                        </a>
+                                        <?php $pe = new \App\Models\kuliahModel(); ?>
+                                        <?php $per = $pe->findAll(); ?>
+                                        <?php foreach ($per as $p) { ?>
+                                            <?php if (user()->fakultas == $p['fakultas']) { ?>
+                                                <?php if (user()->jurusan == $p['jurusan']) { ?>
+                                                    <ul class="nav nav-treeview">
+                                                        <li class="nav-item">
+                                                            <a href="/Jurnal/kuliah/<?= $p['id']; ?>" class="nav-link">
+                                                                <i class="fas fa-arrow-right nav-icon"></i>
+                                                                <p>
+                                                                    <?= $p['nama']; ?>
+                                                                </p>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Jurnal/tambah" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tambah Jurnal</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php } ?>
+                        <?php if (in_groups('operator')) { ?>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        OPERATOR FAKULTAS
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/Pengguna" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Kelola Operator Fakultas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Pengguna/tambah" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tambah Operator Fakultas</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php } elseif (in_groups('operator_fakultas')) { ?>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        MAHASISWA
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/Pengguna" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Kelola Mahasiwa</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Pengguna/tambah" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tambah Mahasiswa</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php } else if (in_groups('admin')) { ?>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        SEMUA PENGGUNA
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/Pengguna" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Lihat Semua</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Pengguna/tambah" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tambah Pengguna Baru</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php } ?>
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file"></i>

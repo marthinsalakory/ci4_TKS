@@ -133,7 +133,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" onclick="return confirm('logout?');" href="/logout">
+                    <a class="nav-link" onclick="return confirm('logout?');" href="/logout" role="button">
                         <i class="fas fa-power-off"></i>
                     </a>
                 </li>

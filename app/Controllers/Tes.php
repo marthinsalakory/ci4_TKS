@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 // use App\Models\rolesModel;
 
-class Tes extends BaseController
+class Fakultas extends BaseController
 {
     public function __construct()
     {

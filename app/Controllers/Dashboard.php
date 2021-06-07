@@ -2,20 +2,20 @@
 
 namespace App\Controllers;
 
-// use App\Models\rolesModel;
+use App\Models\kuliahModel;
 
 class Dashboard extends BaseController
 {
     public function __construct()
     {
-        // $this->pegawaiModel = new pegawaiModel();
+        $this->kuliahModel = new kuliahModel();
     }
     public function index()
     {
         $data =
             [
                 'title' => 'Manage Users',
-                // 'pegawai' => $this->pegawaiModel->getPegawai(),
+
             ];
         return view('dashboard/index', $data);
     }
